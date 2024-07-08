@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "1d8924d2-4eb7-47b4-ab1c-7ce22a43f38a",
+		"name": "LendsqrTask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adjutor.io",
+			"item": [
+				{
+					"name": "Misellenious",
+					"item": [
+						{
+							"name": "Bank List",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a8af3e8f-4935-4787-b7ea-c1a39fb4a854",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has correct validation message\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has valid structure\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('status');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "359356d1-ee2f-413e-a673-6b4056e47a57",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://adjutor.lendsqr.com/misc/banks"
+									},
+									"response": []
+								}
+							],
+							"id": "340b8f2c-9582-4b01-b186-fcbf1bb897fc"
+						},
+						{
+							"name": "Status",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24522cce-cd96-406c-88ae-c869e2ad4dc4",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"adjutor-oraculi-scoring\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has valid structure\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('status');\r",
+													"    pm.expect(jsonData).to.have.property('data');\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "44edc9b8-d0a4-4293-814e-e77987abc63f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://adjutor.lendsqr.com/status"
+									},
+									"response": []
+								}
+							],
+							"id": "9f66bb31-7e97-44b5-a60f-b50a337ca7a0"
+						}
+					],
+					"id": "25e85a0d-702a-45c3-8a10-401e5bc2faf5"
+				},
+				{
+					"name": "Validations",
+					"item": [
+						{
+							"name": "POST Bank Account",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "08e5956b-b5de-4b73-8b89-bb566d945e3c",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has correct validation message\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.data).to.have.property('status');\r",
+													"    pm.expect(jsonData.data.message).to.equal(\"successful\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 600ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "6e1c1869-34a7-4221-a8de-64f5dd4a22ca",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "sk_live_uGaq6fhJkfEAp5peMf5J0uXcxx9QqQhk0kGxCWr5"
+											}
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"account_number\":\"1010118812\",\r\n    \"bank_code\":\"057\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://adjutor.lendsqr.com/verification/bankaccount "
+									},
+									"response": []
+								}
+							],
+							"id": "62f15180-b82b-4291-9bd8-9fc14fbac32f"
+						},
+						{
+							"name": "Karma Lookup",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "590b8370-8b7a-4e99-8e15-971b4bc2a66a",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Your test name\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.value).to.eql(100);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response includes identity information\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.data).to.have.property('karmaIdentity');\r",
+													"    pm.expect(jsonData.data.karmaIdentity).to.equal(\"1234567890\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "03ad7c1e-73a6-4054-a53c-96701a23e0e5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://adjutor.lendsqr.com/verification/karma/0zspgifzbo.ga?identity=22212345678",
+											"protocol": "https",
+											"host": [
+												"adjutor",
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"verification",
+												"karma",
+												"0zspgifzbo.ga"
+											],
+											"query": [
+												{
+													"key": "identity",
+													"value": "22212345678",
+													"description": "BVN"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "71764c9b-ae21-4a4a-a0a1-f31809357f8a"
+						}
+					],
+					"id": "b3b87889-a47d-491f-b0e5-84f955728b28"
+				},
+				{
+					"name": "Decisioning",
+					"item": [
+						{
+							"name": "Decision Model Lookup",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fbade3e6-4386-41ee-a05d-d3001ea63e62",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Your test name\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Default Lendsqr decision model\");\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "04c18748-4094-44e4-882c-6f2f91a25977",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://adjutor.lendsqr.com/decisioning/models"
+									},
+									"response": []
+								}
+							],
+							"id": "903a14be-2f69-4cc1-9a91-ee9cb14f6307"
+						},
+						{
+							"name": "Decision Model Details",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dd057187-1e9b-4947-8425-ace35e1996be",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Your test name\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Decision model\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f974661e-a726-4ff2-a5ec-dec7649443be",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://adjutor.lendsqr.com/decisioning/models/:id/settings",
+											"protocol": "https",
+											"host": [
+												"adjutor",
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"decisioning",
+												"models",
+												":id",
+												"settings"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "d00d255a-6c81-494f-bda6-7c6ea7efcf07"
+						}
+					],
+					"id": "c798bccf-acbf-49dc-880e-a40dc1026019"
+				}
+			],
+			"id": "ba2afa55-46ca-44a4-9d77-34ebdcf0a3bb",
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "sk_live_uGaq6fhJkfEAp5peMf5J0uXcxx9QqQhk0kGxCWr5"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3af25a15-e005-4956-81fd-16f5541696ab",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "938d4eee-bcd6-442e-9f59-58c5fc3f83eb",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "sk_live_uGaq6fhJkfEAp5peMf5J0uXcxx9QqQhk0kGxCWr5"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6ee52600-2693-4ef2-9cc4-18af80127fa1",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ec46ef00-45ad-49de-a726-e9e656b3a0d4",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
